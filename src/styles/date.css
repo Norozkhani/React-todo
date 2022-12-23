@@ -1,4 +1,5 @@
 .date {
   font-size: 32px;
   color: var(--light-heavy-dark);
+  border: 2px solid var(--light-heavy-dark);
 }

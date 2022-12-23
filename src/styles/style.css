@@ -5,3 +5,7 @@
   --light-heavy-dark: #0e0e11;
   --light-disable-dark: #b9b9be;
 }
+
+body {
+  padding: 20px 30px;
+}

@@ -1,22 +1,33 @@
 import Task from "./Task";
+import "../styles/tasks.css";
 
-const Tasks = ({ tasks, handleCheck }) => {
+const Tasks = ({ tasks, handleCheck, activateEditTask }) => {
   return (
     <div>
-      <h3>Incomplete</h3>
+      <h2>Incomlete</h2>
       <ul>
         {tasks
           .filter((task) => task.completed === false)
           .map((task) => (
-            <Task task={task} key={task.id} handleCheck={handleCheck} />
+            <Task
+              task={task}
+              key={task.id}
+              handleCheck={handleCheck}
+              activateEditTask={activateEditTask}
+            />
           ))}
       </ul>
-      <h3>Complete</h3>
+      <h2>Complete</h2>
       <ul>
         {tasks
           .filter((task) => task.completed === true)
           .map((task) => (
-            <Task task={task} key={task.id} handleCheck={handleCheck} />
+            <Task
+              task={task}
+              key={task.id}
+              handleCheck={handleCheck}
+              activateEditTask={activateEditTask}
+            />
           ))}
       </ul>
     </div>

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import AddTask from "./components/AddTask.js";
-import Date from "./components/Date.js";
-import Tasks from "./components/Tasks.js";
+import DateTime from "./components/Date";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
+import EditTask from "./components/EditTask";
 import "./styles/style.css";
 
-const App = () => {
+function App() {
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -67,7 +68,7 @@ const App = () => {
       completed: true,
     },
   ]);
-
+  const [editTask, setEditTask] = useState([]);
   const handleCheck = (id) => {
     setTasks(
       tasks.map((task) =>
@@ -75,20 +76,41 @@ const App = () => {
       )
     );
   };
-
   const createTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
-
+  const activateEditTask = (id) => {
+    setEditTask(tasks.filter((arr) => arr.id === id));
+  };
+  const replaceTask = (editedTask) => {
+    setTasks((prev) =>
+      prev.map((task) => (task.id === editedTask.id ? editedTask : task))
+    );
+    setEditTask([]);
+  };
+  const deleteTask = (id) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+    setEditTask([]);
+  };
   return (
     <div className="App">
       <section>
-        <Date />
-        <Tasks tasks={tasks} handleCheck={handleCheck} />
+        <DateTime />
+        <Tasks
+          tasks={tasks}
+          handleCheck={handleCheck}
+          activateEditTask={activateEditTask}
+        />
         <AddTask taskLen={tasks.length} createTask={createTask} />
+        {editTask.length > 0 && (
+          <EditTask
+            editTask={editTask}
+            replaceTask={replaceTask}
+            deleteTask={deleteTask}
+          />
+        )}
       </section>
     </div>
   );
-};
-
+}
 export default App;
